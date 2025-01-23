@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Products Shop</title>
+</head>
+<body>
+    <div id="productForm">
+        <label>Name:</label>
+        <input type="text" id="productName" /><br /><br />
+        <label>Price:</label>
+        <input type="number" id="productPrice" />
+        <button id="btnSend" disabled="disabled">Send</button>
+    </div>
+    <div id="productInfo"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        let hub = new signalR.HubConnectionBuilder()
+            .withUrl("/shop")
+            .build();
+
+        let btn = document.getElementById("btnSend");
+        btn.addEventListener("click", function(){
+            let name = document.getElementById("productName").value;
+            let price = document.getElementById("productPrice").value;
+
+            //hub.invoke("SendProduct", { "name": name, "price": parseInt(price) })
+            //    .catch((error) => console.error(error.toString()));
+
+            console.log(JSON.stringify({
+                "name": name,
+                "price": price
+            }));
+
+            fetch("create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    "name": name,
+                    "price": price
+                })
+            })
+            .catch((error) => console.error(error.toString()));
+        });
+
+        hub.on("Receive", function (product) {
+            let info = document.getElementById("productInfo");
+            //info.innerText = message;
+
+            //console.log(productJson);
+            info.innerText = `Product name: ${product.name}, price: ${product.price}`;
+            //let p = document.createElement("p");
+            //p.append(document.createTextNode(`Product name: ${product.name}, price: ${product.price}`));
+        });
+
+        hub.start()
+            .then(function () {
+                btn.disabled = false;
+            })
+            .catch((error) => console.error(error.toString()));
+
+    </script>
+</body>
+</html>

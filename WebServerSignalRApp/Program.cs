@@ -2,19 +2,7 @@ using WebServerSignalRApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSignalR(options =>
-{
-    options.EnableDetailedErrors = true;
-    options.KeepAliveInterval = TimeSpan.FromSeconds(30);
-    options.MaximumReceiveMessageSize = 1024;
-});
-
-builder.Services.AddSignalR()
-                .AddHubOptions<ChatHub>(options =>
-                {
-                    options.EnableDetailedErrors = false;
-                });
-
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 

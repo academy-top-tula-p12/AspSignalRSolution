@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServerSignalRApp", "WebServerSignalRApp\WebServerSignalRApp.csproj", "{D6CCD942-26D8-47D3-9F8E-69941D6AE800}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfSignalRClientApp", "WpfSignalRClientApp\WpfSignalRClientApp.csproj", "{4984E9D7-5398-445B-831B-74548D0CD107}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebProductsServerApp", "WebProductsServerApp\WebProductsServerApp.csproj", "{E69A81E2-1632-40CD-92D0-76BB9CCC087D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuthServerApp", "WebAuthServerApp\WebAuthServerApp.csproj", "{36F8EBAB-6028-4E84-AE9C-86B1004F722F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{D6CCD942-26D8-47D3-9F8E-69941D6AE800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6CCD942-26D8-47D3-9F8E-69941D6AE800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6CCD942-26D8-47D3-9F8E-69941D6AE800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4984E9D7-5398-445B-831B-74548D0CD107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4984E9D7-5398-445B-831B-74548D0CD107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4984E9D7-5398-445B-831B-74548D0CD107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4984E9D7-5398-445B-831B-74548D0CD107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69A81E2-1632-40CD-92D0-76BB9CCC087D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69A81E2-1632-40CD-92D0-76BB9CCC087D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69A81E2-1632-40CD-92D0-76BB9CCC087D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69A81E2-1632-40CD-92D0-76BB9CCC087D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F8EBAB-6028-4E84-AE9C-86B1004F722F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F8EBAB-6028-4E84-AE9C-86B1004F722F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F8EBAB-6028-4E84-AE9C-86B1004F722F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F8EBAB-6028-4E84-AE9C-86B1004F722F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

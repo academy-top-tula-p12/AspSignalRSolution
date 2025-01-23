@@ -18,11 +18,11 @@
     <script src="js/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script>
         let hub = new signalR.HubConnectionBuilder()
-                             .withUrl("/chat")
-                             .build();
+            .withUrl("/chat")
+            .build();
 
         let btn = document.getElementById("btnSend");
-        btn.addEventListener("click", function () {
+        btn.addEventListener("click", function() {
             let user = document.getElementById("user").value;
             let message = document.getElementById("message").value;
 
@@ -30,18 +30,25 @@
                 .catch(function(error) {
                     return console.error(error.toString())
                 });
+            document.getElementById("message").value = "";
         });
 
-        hub.on("Reseive", function(user, message) {
+        hub.on("Reseive", function(user, message, connectionId) {
             let bname = document.createElement("strong");
-            bname.textContent = user + ": ";
+            bname.textContent = user + " " + connectionId + ": ";
 
             let p = document.createElement("p");
             p.append(bname);
             p.append(document.createTextNode(message));
 
             let chatRoom = document.getElementById("chatRoom");
-            chatRoom.append(p);
+            chatRoom.prepend(p);
+        });
+
+        hub.on("Notify", function (message) {
+            let p = document.createElement("p");
+            p.append(document.createTextNode(message));
+            chatRoom.prepend(p);
         });
 
         hub.start()
