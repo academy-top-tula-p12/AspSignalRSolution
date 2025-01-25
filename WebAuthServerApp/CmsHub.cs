@@ -14,7 +14,7 @@ namespace WebAuthServerApp
         [Authorize(Roles = "admin")]
         public async Task NotifyMessage(string message)
         {
-            await Clients.All.SendAsync("Notify", "admin", message);
+            await Clients.All.SendAsync("Receive", "admin", message);
         }
     }
 }

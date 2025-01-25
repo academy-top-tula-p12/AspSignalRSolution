@@ -3,8 +3,73 @@
 <head>
     <meta charset="utf-8" />
     <title>Home Page</title>
+    <style>
+        div {
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
+    <div>
+        <a href="logout">Logout</a>
+    </div>
 
+    <div id="chatForm">
+        <div>
+            <label>Username:</label><br />
+            <input type="text" id="username" />
+        </div>
+        <div>
+            <label>Message:</label><br />
+            <input type="text" id="message" />
+        </div>
+        <div>
+            <button id="btnSend" disabled="disabled">Send message</button>
+        </div>
+    </div>
+
+    <div>
+        <a href="admin">Admin Page</a>
+    </div>
+
+    <div id="chatRoom"></div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        let hub = new signalR.HubConnectionBuilder()
+                            .withUrl("/cms")
+                            .build();
+
+        let btn = document.getElementById("btnSend");
+        btn.addEventListener("click", function () {
+            let username = document.getElementById("username").value;
+            let message = document.getElementById("message").value;
+
+            hub.invoke("SendMessage", username, message)
+                .catch((error) => console.error(error.toString()));
+        });
+
+        hub.on("Receive", (username, message) => {
+            let bold = document.createElement("b");
+            bold.textContent = username + ": ";
+
+            let parargraph = document.createElement("p");
+            parargraph.append(bold);
+            parargraph.append(document.createTextNode(message));
+
+            if (username == "admin") {
+                parargraph.style.color = "red";
+            }
+
+
+            let chatRoom = document.getElementById("chatRoom");
+            chatRoom.prepend(parargraph);
+        });
+
+        hub.start()
+            .then(() => btn.disabled = false)
+            .catch((error) => console.error(error.toString()));
+    </script>
 </body>
 </html>

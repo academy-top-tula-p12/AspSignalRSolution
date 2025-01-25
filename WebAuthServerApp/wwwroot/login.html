@@ -3,8 +3,67 @@
 <head>
     <meta charset="utf-8" />
     <title>Login Page</title>
+    <style>
+        div{
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
+    <h2>Login to App</h2>
+    <!--<form method="post">-->
+        <div>
+            <lable>Login:</lable><br />
+            <input type="text" name="login" />
+        </div>
+        <div>
+            <lable>Password:</lable><br />
+            <input type="password" name="password" />
+        </div>
+        <div>
+            <!--<button type="submit">Login</button>-->
+            <button id="btnLogin">Login</button>
+        </div>
+    <!--</form>-->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        let hub = new signalR.HubConnectionBuilder()
+                            .withUrl("/cms")
+                            .build();
+        
+        let token;
+        let login;
+        let password;
+
+        let btn = document.getElementById("btnLogin");
+        btn.addEventListener("click", async function () {
+
+            login = document.getElementById("login").value;
+            password = document.getElementById("password").value;
+
+            let response = await fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    login: login,
+                    password: password
+                })
+            });
+
+            if (response.ok === true) {
+                let responseBody = await response.json();
+                login = responseBody.login;
+                token = responseBody.access_token;
+
+                hub.start();
+                window.location = "/";
+            }
+            else {
+                console.error(response.status);
+            }
+
+        });
+    </script>
 </body>
 </html>
