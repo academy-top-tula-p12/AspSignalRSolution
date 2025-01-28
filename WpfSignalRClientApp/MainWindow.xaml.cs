@@ -24,11 +24,11 @@ namespace WpfSignalRClientApp
 
             hub = new HubConnectionBuilder().WithUrl("https://localhost:7244/chat").Build();
 
-            hub.On<string, string, string>("Reseive", (user, message, connectionId) =>
+            hub.On<string, string>("Reseive", (user, message) =>
             {
                 Dispatcher.Invoke(() =>
                 {
-                    message = $"{user} {connectionId}: {message}";
+                    message = $"{user}: {message}";
                     chatRoom.Items.Insert(0, message);
                     chatRoom.Items.Refresh();
                 });

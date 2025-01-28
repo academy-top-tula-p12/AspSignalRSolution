@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hub Filter</title>
+</head>
+<body>
+    <div>
+        <label>Name:</label><br />
+        <input type="text" id="username" />
+    </div>
+    <div>
+        <label>Message:</label><br />
+        <input type="text" id="message" />
+    </div>
+    <div>
+        <button id="btnSend">Send message</button>
+    </div>
+    <div id="chatRoom"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        let hub = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+
+        let btn = document.getElementById("btnSend");
+
+        btn.addEventListener("click", function () {
+            let username = document.getElementById("username").value;
+            let message = document.getElementById("message").value;
+
+            hub.invoke("SendMessage", username, message)
+                .catch(function (error) {
+                    return console.error(error.toString())
+                });
+            document.getElementById("message").value = "";
+        });
+
+        hub.on("Receive", function (message) {
+            let room = document.getElementById("chatRoom");
+            let line = document.createElement("p");
+            line.append(document.createTextNode(message));
+            room.append(line);
+        });
+
+        hub.start();
+
+    </script>
+</body>
+</html>

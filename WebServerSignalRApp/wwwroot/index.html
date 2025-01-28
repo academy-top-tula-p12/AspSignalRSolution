@@ -33,9 +33,9 @@
             document.getElementById("message").value = "";
         });
 
-        hub.on("Reseive", function(user, message, connectionId) {
+        hub.on("Reseive", function(user, message) {
             let bname = document.createElement("strong");
-            bname.textContent = user + " " + connectionId + ": ";
+            bname.textContent = user + ": ";
 
             let p = document.createElement("p");
             p.append(bname);

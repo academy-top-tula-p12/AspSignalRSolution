@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiSignalRApp.MainPage">
+
+    <StackLayout>
+        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           HorizontalOptions="CenterAndExpand"/>
+
+        <StackLayout>
+            <Label FontSize="26" Text="Name:"/>
+            <Entry x:Name="userName" 
+                   Text="{Binding UserName}"
+                   HorizontalOptions="FillAndExpand"/>
+            <Label FontSize="26" Text="Message:"/>
+            <Entry x:Name="message" 
+                   Text="{Binding Message}"
+                   HorizontalOptions="FillAndExpand"/>
+            <Button Text="Send message" 
+                    IsEnabled="{Binding IsConnected}"
+                    Command="{Binding SendMessageCommand}"/>
+        </StackLayout>
+        <ListView ItemsSource="{Binding Messages}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Name}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Message}" Margin="20, 0, 0, 0"/>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+    </StackLayout>
+
+</ContentPage>
